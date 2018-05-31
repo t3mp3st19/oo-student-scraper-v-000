@@ -9,24 +9,22 @@ class Scraper
     students = Nokogiri::HTML(doc)
     binding.pry
     #return value is hash of each student, :name, :location, :profile_url   students = {}
-    students.css(".student-card").text
-		name = students.css(".student-name").text
-		location = students.css(".student-location").text
-		url = students.css(".student-card a")
-    #url["href"]
-    #student
+    student = []
+    card = students.css(".student-card").text
+    card.each do |student|
+      student_hash = { :name => students.css(".student-name").text,
+  		:location => students.css(".student-location").text,
+  		:profile_url => students.css(".student-card a").value }
+		student << student_hash
+    end
+    student
+    #students = { :name => name, :location => location, :profile_url => url}
   end
 
   def self.scrape_profile_page(profile_url)
     doc = File.read("./fixtures/student-site/students/")
     student_profiles = Nokogiri::HTML(doc)
-    student_twitter = []
-    student_linkedin = []
-    student_github = []
-    student_blog = []
-    student_quote = []
-    student_bio = []
-    
+
     student_profiles.css(".title-holder").text
   end
 

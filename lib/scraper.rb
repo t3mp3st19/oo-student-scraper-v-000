@@ -12,7 +12,8 @@ class Scraper
     students.css(".student-card").text
 		name = students.css(".student-name").text
 		location = students.css(".student-location").text
-		url = students.css(".student-card a[href]")
+		url["href"] = students.css(".student-card a")
+    #url["href"]
     #student
   end
 

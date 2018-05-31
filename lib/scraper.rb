@@ -10,14 +10,14 @@ class Scraper
     #binding.pry
     #return value is hash of each student, :name, :location, :profile_url   students = {}
     students.css(".student-card").each do |card|
-		#students = {}
+		#student = {}
 		#student = Student.new
-		students.name = card.css(".student-name").text
-		students.location = card.css(".student-location").text
-		students.url = card.css("a").text
+		name = students.css(".student-name").text
+		location = students.css(".student-location").text
+		url = students.css("a").text
 
  end
-    students
+    student
   end
 
   def self.scrape_profile_page(profile_url)

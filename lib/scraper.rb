@@ -9,15 +9,11 @@ class Scraper
     students = Nokogiri::HTML(doc)
     #binding.pry
     #return value is hash of each student, :name, :location, :profile_url   students = {}
-    students.css(".student-card").each do |card|
-		#student = {}
-		#student = Student.new
+    students.css(".student-card").text
 		name = students.css(".student-name").text
 		location = students.css(".student-location").text
 		url = students.css("a").text
-
- end
-    student
+    #student
   end
 
   def self.scrape_profile_page(profile_url)

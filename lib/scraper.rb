@@ -32,15 +32,15 @@ class Scraper
     social_media = doc.css(".social-icon-container a")
 
     social_media.each do |social|
-      if social_media.attribute("href").value.include?("twitter")
+      if social_media.attribute("href").text.include?("twitter")
         scrape_profile_page[:twitter] = social.attribute("href").text
-      elsif social_media.attribute("href").value.include?("github")
+      elsif social_media.attribute("href").text.include?("github")
         scrape_profile_page[:github] = social.attribute("href").text
-      elsif social_media.attribute("href").value.include?("linkedin")
+      elsif social_media.attribute("href").text.include?("linkedin")
         scrape_profile_page[:linkedin] = social.attribute("href").text
       else
-        scrape_profile_page[:blog] = social.attribute("href").text 
-      
+        scrape_profile_page[:blog] = social.attribute("href").text
+
     end
   end
 

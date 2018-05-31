@@ -20,7 +20,13 @@ class Scraper
   def self.scrape_profile_page(profile_url)
     doc = File.read("./fixtures/student-site/students/")
     student_profiles = Nokogiri::HTML(doc)
-
+    student_twitter = []
+    student_linkedin = []
+    student_github = []
+    student_blog = []
+    student_quote = []
+    student_bio = []
+    
     student_profiles.css(".title-holder").text
   end
 

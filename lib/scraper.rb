@@ -41,6 +41,7 @@ class Scraper
       else
         scrape_profile_page[:blog] = social.attribute("href").text
     end
+  end
     scrape_profile_page
   end
 

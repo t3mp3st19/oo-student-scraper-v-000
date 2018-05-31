@@ -12,9 +12,9 @@ class Scraper
     students.css(".student-card").each do |card|
 		students = {
 		#student = Student.new
-		:name => student.name = card.css(".student-name").text
-		:location => student.location = card.css(".student-location").text
-		:student_url => student.url = card.css("a").text
+		student.name = card.css(".student-name").text
+		student.location = card.css(".student-location").text
+		student.url = card.css("a").text
 	}
  end
     students

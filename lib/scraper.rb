@@ -21,10 +21,27 @@ class Scraper
   end
 
   def self.scrape_profile_page(profile_url)
-    doc = File.read("./fixtures/student-site/students/")
-    student_profiles = Nokogiri::HTML(doc)
+    html = open(profile_url)
+    doc = Nokogiri::HTML(html)
 
-    student_profiles.css(".title-holder").text
+    scrape_profile_page = {
+      :profile_quote => doc.css(".vitals-text-container").text
+      :bio => doc.css(".description-holder").text
+    }
+
+    social_media = doc.css(".social-icon-container a")
+
+    social_media.each do |social|
+      if social_media.attribute("href").value.include?("twitter")
+        scrape_profile_page[:twitter] = social.attribute("href").text
+      elsif social_media.attribute("href").value.include?("github")
+        scrape_profile_page[:github] = social.attribute("href").text
+      elsif social_media.attribute("href").value.include?("linkedin")
+        scrape_profile_page[:linkedin] = social.attribute("href").text
+      else
+        scrape_profile_page[:blog] = social.attribute("href").text 
+      
+    end
   end
 
 end

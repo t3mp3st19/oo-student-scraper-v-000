@@ -23,7 +23,7 @@ class Scraper
   def self.scrape_profile_page(profile_url)
     html = open(profile_url)
     doc = Nokogiri::HTML(html)
-
+    student = []
     scrape_profile_page = {
       :profile_quote => doc.css(".vitals-text-container").text,
       :bio => doc.css(".description-holder p").text
@@ -39,10 +39,11 @@ class Scraper
       elsif social_media.attribute("href").text.include?("linkedin")
         scrape_profile_page[:linkedin] = social.attribute("href").text
       else
-        scrape_profile_page[:blog] = social.attribute("href").text
+        scrape_profile_page[:blog] = social.attribute("href").text 
     end
   end
     scrape_profile_page
+    student
   end
 
 end

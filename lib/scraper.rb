@@ -12,7 +12,7 @@ class Scraper
     #binding.pry
     #return value is hash of each student, :name, :location, :profile_url   students = {}
     card.each do |students|
-      student << { 
+      student << {
         :name => students.css(".student-name").text,
   		  :location => students.css(".student-location").text,
   		  :profile_url => students.css(".student-card a").text }

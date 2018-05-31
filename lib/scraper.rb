@@ -25,7 +25,7 @@ class Scraper
     doc = Nokogiri::HTML(html)
 
     scrape_profile_page = {
-      :profile_quote => doc.css(".profile-quote").text,
+      :profile_quote => doc.css(".vitals-text-container").text,
       :bio => doc.css(".description-holder p").text
     }
 

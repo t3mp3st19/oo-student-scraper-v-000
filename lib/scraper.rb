@@ -24,25 +24,14 @@ class Scraper
     html = open(profile_url)
     doc = Nokogiri::HTML(html)
     student = []
-    scrape_profile_page = {
-      :profile_quote => doc.css(".vitals-text-container").text,
-      :bio => doc.css(".description-holder p").text
-    }
-
-    social_media = doc.css(".social-icon-container a")
-
-    social_media.each do |social|
-      if social_media.attribute("href").text.include?("twitter")
-        scrape_profile_page[:twitter] = social.attribute("href").text
-      elsif social_media.attribute("href").text.include?("github")
-        scrape_profile_page[:github] = social.attribute("href").text
-      elsif social_media.attribute("href").text.include?("linkedin")
-        scrape_profile_page[:linkedin] = social.attribute("href").text
-      else
-        scrape_profile_page[:blog] = social.attribute("href").text 
+    profile.css("div.social-icon-container a").select{|link| link['href']}.each do |link|
+      student[:github] = link['href'] if /github/.match(link['href'])
+      student[:twitter] = link['href'] if /twitter/.match(link['href'])
+      student[:linkedin] = link['href'] if /linkedin/.match(link['href'])
+      student[:blog] = link['href'] if !/(github|linkedin|twitter)/.match(link['href'])
     end
-  end
-    scrape_profile_page
+    student[:bio] = profile.css("div.description-holder p").text
+    student[:profile_quote] = profile.css("div.profile-quote").text
     student
   end
 

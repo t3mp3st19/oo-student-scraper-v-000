@@ -26,10 +26,10 @@ class Scraper
       details = doc.css(".vitals-container")
       links_array = details.css(".social-icon-container a")
       links_array.each do |link|
-        scraped_student[:github] = link["a"] if /github/.match(link['href']
-      scraped_student[:twitter] = link["a"] if /twitter/.match(link['href']
-      scraped_student[:linkedin] = link["a"] if /linkedin/.match(link['href']
-      scraped_student[:blog] = link["a"] if !/(github|linkedin|twitter)/.match(link['href']
+        scraped_student[:github] = link["a"] if /github/.match(link['href'])
+      scraped_student[:twitter] = link["a"] if /twitter/.match(link['href'])
+      scraped_student[:linkedin] = link["a"] if /linkedin/.match(link['href'])
+      scraped_student[:blog] = link["a"] if !/(github|linkedin|twitter)/.match(link['href'])
       end
     end
       scraped_student[:profile_quote] = details.css(".profile-quote").text

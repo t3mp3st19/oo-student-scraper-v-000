@@ -20,25 +20,22 @@ class Scraper
   end
 
   def self.scrape_profile_page(profile_url)
-    scraped_student = {}
     html = File.read(profile_url)
     doc = Nokogiri::HTML(html)
-    details = doc.css(".vitals-container")
-    links_array = details.css(".social-icon-container a")
-    links_array.each do |link|
-      if link.attributes["href"].value.include?("twitter")
-        scraped_student[:twitter] = link.attributes["href"].value
-      elsif link.attributes["href"].value.include?("linkedin")
-        scraped_student[:linkedin] = link.attributes["href"].value
-      elsif link.attributes["href"].value.include?("github")
-        scraped_student[:github] = link.attributes["href"].value
-      else
-        scraped_student[:blog] = link.attributes["href"].value
-      end
+    student = {}
+    scrape_profile_page = {
+      :profile_quote => doc.css(".vitals-text-container").text,
+      :bio => doc.css(".description-holder p").text
+    }
+
+    doc.css(".social-icon-container a").each do |link| #match iterates over regex for the literal words for social media
+      student[:github] = link["a"] if /github/.match(link['href'])
+      student[:twitter] = link["a"] if /twitter/.match(link['href'])
+      student[:linkedin] = link["a"] if /linkedin/.match(link['href'])
+      student[:blog] = link["a"] if !/(github|linkedin|twitter)/.match(link['href'])
     end
-    scraped_student[:profile_quote] = details.css("div.profile-quote").text
-    scraped_student[:bio] = doc.css("div.details-container div.bio-block div.bio-content div.description-holder p").text
-    scraped_student
+    scrape_profile_page
+    student
   end
 
 end

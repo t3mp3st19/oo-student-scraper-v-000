@@ -31,6 +31,7 @@ class Scraper
       scraped_student[:linkedin] = link["a"] if /linkedin/.match(link['href']
       scraped_student[:blog] = link["a"] if !/(github|linkedin|twitter)/.match(link['href']
       end
+    end
       scraped_student[:profile_quote] = details.css(".profile-quote").text
       scraped_student[:bio] = doc.css(".details-container .bio-block .bio-content .description-holder p").text
       scraped_student

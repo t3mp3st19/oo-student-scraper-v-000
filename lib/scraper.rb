@@ -27,13 +27,13 @@ class Scraper
       links_array = details.css(".social-icon-container a")
       links_array.each do |link|
         if link.attributes["href"].value.include?("twitter")
-          scraped_student[:twitter] = link.attributes["href"].value
+          scraped_student[:twitter] = link.attributes["a"].value
         elsif link.attributes["href"].value.include?("linkedin")
-          scraped_student[:linkedin] = link.attributes["href"].value
-        elsif link.attributes["href"].value.include?("github")
-          scraped_student[:github] = link.attributes["href"].value
+          scraped_student[:linkedin] = link.attributes["a"].value
+        elsif link.attributes["a"].value.include?("github")
+          scraped_student[:github] = link.attributes["a"].value
         else
-          scraped_student[:blog] = link.attributes["href"].value
+          scraped_student[:blog] = link.attributes["a"].value
         end
       end
       scraped_student[:profile_quote] = details.css(".profile-quote").text

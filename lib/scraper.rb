@@ -20,8 +20,7 @@ class Scraper
   end
 
   def self.scrape_profile_page(profile_url)
-    #profile_url = "./fixtures/student-site/students/joe-burgess.html"
-    scraped_student = {}
+    scraped_student = []
     html = File.read(profile_url)
     doc = Nokogiri::HTML(html)
     details = doc.css("div.vitals-container")

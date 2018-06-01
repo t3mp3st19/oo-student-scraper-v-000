@@ -15,7 +15,7 @@ class Scraper
       student << {
         :name => students.css(".student-name").text,
   		  :location => students.css(".student-location").text,
-  		  :profile_url => students.css(".student-card a").text }
+  		  :profile_url => students.css(".student-card a").value }
     end
     student
   end
@@ -29,11 +29,11 @@ class Scraper
       :bio => doc.css(".description-holder p").text
     }
 
-    doc.css(".social-icon-container a").select{|link| link['href']}.each do |link|
-      student[:github] = link['href'] if /github/.match(link['href'])
-      student[:twitter] = link['href'] if /twitter/.match(link['href'])
-      student[:linkedin] = link['href'] if /linkedin/.match(link['href'])
-      student[:blog] = link['href'] if !/(github|linkedin|twitter)/.match(link['href'])
+    doc.css(".social-icon-container a").each do |link| #match iterates over regex for the literal words for social media
+      student[:github] = link["a"] if /github/.match(link['href'])
+      student[:twitter] = link["a"] if /twitter/.match(link['href'])
+      student[:linkedin] = link["a"] if /linkedin/.match(link['href'])
+      student[:blog] = link["a"] if !/(github|linkedin|twitter)/.match(link['href'])
     end
     scrape_profile_page
     student

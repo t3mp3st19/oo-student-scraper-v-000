@@ -6,15 +6,15 @@ class Scraper
 
   def self.scrape_index_page(index_url)
     student = []
-    html = open("./fixtures/student-site/index.html")
+    html = File.read(index_url)
     doc = Nokogiri::HTML(html)
-    card = doc.css(".student-card")
+    card = doc.css("div.student-card")
     #binding.pry
     #return value is hash of each student, :name, :location, :profile_url   students = {}
     card.each do |students|
       student << {
-        :name => students.css(".student-name").text,
-  		  :location => students.css(".student-location").text,
+        :name => students.css("div.card-text-container h4.student-name").text,
+  		  :location => students.css("div.card-text-container p.student-location").text,
   		  :profile_url => students.css(".student-card a").value }
     end
     student

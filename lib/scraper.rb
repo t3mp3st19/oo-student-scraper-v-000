@@ -24,6 +24,10 @@ class Scraper
       html = File.read(profile_url)
       doc = Nokogiri::HTML(html)
       details = doc.css(".vitals-container")
+      scrape_profile_page = {
+      :profile_quote => details.css(".profile-quote").text,
+      :bio => doc.css(".details-container .bio-block .bio-content .description-holder p").text
+    }
       links_array = details.css(".social-icon-container a")
       links_array.each do |link|
         if link.attributes["href"].value.include?("twitter")
@@ -36,8 +40,7 @@ class Scraper
           scraped_student[:blog] = link.attributes["href"].value
         end
       end
-      scraped_student[:profile_quote] = details.css(".profile-quote").text
-      scraped_student[:bio] = doc.css(".details-container .bio-block .bio-content .description-holder p").text
+      scrape_profile_page
       scraped_student
   end
 

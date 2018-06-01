@@ -10,11 +10,11 @@ class Scraper
     details = doc.css("div.student-card")
     scraped_students = []
     details.each do |student|
-      scraped_students.push({
+      scraped_students << {
         :name => student.css("a div.card-text-container h4.student-name").text,
         :location => student.css("a div.card-text-container p.student-location").text,
         :profile_url => student.css("a").attr("href").value
-        })
+        }
     end
     scraped_students
   end
